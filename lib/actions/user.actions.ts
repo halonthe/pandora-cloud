@@ -1,9 +1,11 @@
 'use server'
 
 import { Query, ID } from "node-appwrite"
-import { createAdminClient } from "@/lib/appwrite"
+import { createAdminClient,createSessionClient } from "@/lib/appwrite"
 import { appwriteConfig } from "@/lib/appwrite/config"
 import {parseStringify} from "@/lib/utils";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 async function getUserByEmail(email: string) {
 	const { databases } = await createAdminClient()
@@ -46,7 +48,7 @@ export async function verifyEmailOTP(accountId: string, otp: string) {
 	try {
 	const { account } = await createAdminClient()
 
-	const session = await account.createSession(accountId, otp)
+	const session = await account.createSession(accountId, otp);
 
 	(await cookies()).set('appwrite-session', session.secret, {
 		path: '/',
@@ -56,7 +58,48 @@ export async function verifyEmailOTP(accountId: string, otp: string) {
 		secure: true,
 	})
 
+	return parseStringify({sessionId: session.$id})
 	}catch (e) {
 		handleError(e, "Failed to verify OTP")
 	}
+}
+
+export async function logout() {
+	const { account } = await createSessionClient()
+
+	try {
+		await account.deleteSession("current");
+		(await cookies()).delete('appwrite-session')
+	} catch (error) {
+		handleError(error, "Failed to logout")
+	}finally {
+		redirect("/")
+	}
+}
+
+export async function login({email}:{email:string}) {
+	try {
+		const user = await getUserByEmail(email)
+		if(!user) return parseStringify({accountId: null, error: "User not found"})
+
+		await sendEmailOTP(email)
+		return parseStringify({accountId: user.accountId})
+	}catch (e) {
+		handleError(e, "Failed to login")
+	}
+}
+
+export async function getCurrentUser() {
+	const { account, databases } = await createSessionClient()
+
+	const result = await account.get()
+
+	const user = await databases.listDocuments(
+		appwriteConfig.databaseId,
+		appwriteConfig.usersCollectionId,
+		[Query.equal("accountId", result.$id)]
+	)
+	if(user.total <= 0) return null
+
+	return parseStringify(user.documents[0])
 }

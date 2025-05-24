@@ -16,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input"
 import Link from "next/link";
 import Image from "next/image";
-import {createUser} from "@/lib/actions/user.actions";
+import {createUser, login} from "@/lib/actions/user.actions";
 import OtpModal from "@/components/auth/otp-modal";
 
 
@@ -24,7 +24,6 @@ export default function AuthForm({type}:{type:"login" | "register"}) {
 	const [errorMessage, setErrorMessage] = useState("")
 	const [isLoading, setIsLoading] = useState(false)
 	const [accountId, setAccountId] = useState(null)
-	const [isOtpModalOpen, setIsOtpModalOpen] = useState(true)
 
 	const formSchema = z.object({
 		email: z.string().email(),
@@ -46,10 +45,10 @@ export default function AuthForm({type}:{type:"login" | "register"}) {
 
 		try {
 
-		const user = await createUser({
+		const user = type === "register" ? await createUser({
 			fullName: values.fullName || "",
 			email: values.email,
-		})
+		}) : await login({email: values.email})
 
 		setAccountId(user.accountId)
 

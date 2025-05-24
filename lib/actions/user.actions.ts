@@ -54,7 +54,7 @@ export async function verifyEmailOTP(accountId: string, otp: string) {
 		path: '/',
 		maxAge: 60 * 60 * 24 * 30, // 30 days
 		httpOnly: true,
-		sameSite: 'lax',
+		sameSite: 'strict',
 		secure: true,
 	})
 

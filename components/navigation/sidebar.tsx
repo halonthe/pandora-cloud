@@ -39,7 +39,7 @@ export default function Sidebar({fullName, email, avatar} : Props) {
 				<Image src={avatar} alt={"avatar"} width={44} height={44} className={"aspect-square w-10 rounded-full object-cover"}/>
 				<div className={"hidden lg:block "}>
 				<p className={"subtitle-2 capitalize"}>{fullName}</p>
-				<p className={"body-2"}>{email}</p>
+				<p className={"caption"}>{email}</p>
 				</div>
 			</div>
 		</aside>

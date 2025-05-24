@@ -12,7 +12,7 @@ export default async function Layout({children}:{children: React.ReactNode}) {
 		<main className={"flex h-screen"}>
 			<Sidebar {...currentUser}/>
 			<section className={"flex flex-col flex-1 h-full"}>
-				<MobileNav/>
+				<MobileNav {...currentUser}/>
 				<Header/>
 				<div className={"remove-scrollbar h-full flex-1 overflow-auto bg-light-400 px-5 py-7 sm:mr-7 sm:rounded-[30px] md:mb-7 md:px-9 md:py-10"}>
 					{children}

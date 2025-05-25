@@ -6,6 +6,8 @@ export const navigation = [
 	{name: 'Others', href: '/others', icons:'/assets/icons/others.svg'},
 ]
 
+export const maxFileSize = 50 * 1024 * 1024; // 50 MB
+
 export const extensions = {
 	images: ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'],
 	videos: ['mp4', 'mov', 'avi', 'mkv', 'wmv', 'flv', 'webm', 'vob', 'ogv', 'ogg', 'drc', 'gifv', 'mng', 'qt', 'rm', 'rmvb', 'asf', 'amv', 'mpg', 'mp2', 'mpeg', 'mpe', 'mpv', 'm4p', 'm4v', 'svi', '3gp', '3g2', 'mxf', 'roq', 'nsv', 'flv', 'f4v', 'f4p', 'f4a', 'f4b'],

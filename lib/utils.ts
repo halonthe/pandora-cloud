@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import {extensions} from "@/constants";
+import {FileType} from "next/dist/lib/file-exists";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -10,8 +11,9 @@ export function parseStringify(value: unknown) {
   return JSON.parse(JSON.stringify(value))
 }
 
-export function getFileType(filename:string){
+export function getFileTypes(filename:string){
   const ext = filename.split('.').pop()?.toLowerCase()
+  if (!ext) return { type: "other", extension: "" };
 
   const document = extensions.documents.includes(ext)
   if(document) return {type: "document", ext}
@@ -87,4 +89,8 @@ export function getFileIcons(ext: string | undefined, type: FileType | string) {
           return "/assets/icons/file-other.svg";
       }
   }
+}
+
+export function constructFileUrl(bucketFileId: string) {
+  return `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${process.env.NEXT_PUBLIC_APPWRITE_BUCKET}/files/${bucketFileId}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT}`;
 }

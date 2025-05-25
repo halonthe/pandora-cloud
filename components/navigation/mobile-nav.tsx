@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/sheet"
 import { Separator } from "@/components/ui/separator"
 import Image from "next/image";
-import {useState} from "react";
 import {usePathname} from "next/navigation";
 import {navigation} from "@/constants";
 import {cn} from "@/lib/utils";
@@ -19,12 +18,12 @@ interface Props {
 	avatar: string,
 	fullName: string,
 	email: string,
-	ownerId: string,
+	$id: string,
 	accountId: string,
 }
 
-export default function MobileNav({avatar, fullName, email, ownerId, accountId}: Props) {
-	const [isOpen, setIsOpen] = useState(false)
+export default function MobileNav({avatar, fullName, email, $id: ownerId, accountId}: Props) {
+
 	const pathname = usePathname()
 	return(
 		<header className={"flex h-[60px] justify-between px-5 sm:hidden"}>
@@ -63,7 +62,7 @@ export default function MobileNav({avatar, fullName, email, ownerId, accountId}:
 
 					<div className={"flex flex-col gap-5 justify-between pb-5"}>
 
-						<FileUpload/>
+						<FileUpload ownerId={ownerId} accountId={accountId}/>
 						<Button type={"submit"} className={"h5 flex h-[52px] w-full items-center gap-4 rounded-full bg-brand/10 px-6 text-brand shadow-none transition-all hover:bg-brand/20"} onClick={() => {}}>
 							<Image src={"/assets/icons/logout.svg"} alt={"logout"} width={24} height={24} />
 							<p className={"text-brand"}>Logout</p>

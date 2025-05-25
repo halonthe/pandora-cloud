@@ -1,18 +1,15 @@
 import {
 	AlertDialog,
 	AlertDialogAction,
-	AlertDialogCancel,
 	AlertDialogContent,
 	AlertDialogDescription,
 	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
-	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import {
 	InputOTP,
 	InputOTPGroup,
-	InputOTPSeparator,
 	InputOTPSlot,
 } from "@/components/ui/input-otp"
 import  React, {useState} from "react";
@@ -76,7 +73,7 @@ return (
 				</AlertDialogAction>
 
 					<AlertDialogDescription className={"subtitle-2 text-center"}>
-						Didn't get a code? <span className={"text-brand cursor-pointer"} onClick={handleResendOtp}>click to resend</span>
+						Didn&apos;t get a code? <span className={"text-brand cursor-pointer"} onClick={handleResendOtp}>click to resend</span>
 					</AlertDialogDescription>
 				</div>
 			</AlertDialogFooter>

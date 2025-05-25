@@ -48,7 +48,7 @@ export default function FileUpload({ownerId, accountId, className}: Props) {
 		await Promise.all(uploadPromises)
 	}, [ownerId, accountId, path])
 
-	const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+	const {getRootProps, getInputProps} = useDropzone({onDrop})
 
 	const handleRemoveFile = (e: React.MouseEvent<HTMLImageElement, MouseEvent>, fileName: string) => {
 		e.stopPropagation()

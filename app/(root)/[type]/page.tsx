@@ -4,7 +4,7 @@ import {Models} from "node-appwrite";
 import Card from "@/components/content/card";
 
 
-export default async function Page({params}: SearchParamsProps) {
+export default async function Page({params,searchParams}: SearchParamProps) {
 	const type = ((await params)?.type as string) || "";
 	const files = await getFiles();
 	return(

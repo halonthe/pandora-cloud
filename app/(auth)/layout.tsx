@@ -9,7 +9,7 @@ export default function AuthLayout({children}: {children: React.ReactNode}) {
 				<Image src={"/assets/icons/logo-full.svg"} alt={"logo"} width={224} height={82} />
 				<div className={"text-white space-y-5"}>
 				<h1 className={"h1"}>Manage your files the best way</h1>
-					<p className={"body-1"}>Awesome, we've created the perfect place for you to store all your documents.</p>
+					<p className={"body-1"}>Awesome, we&apos;ve created the perfect place for you to store all your documents.</p>
 				</div>
 				<Image src={"/assets/images/files.png"} alt={"files"} width={342} height={342} className={"hover:rotate-2 hover:scale-110 transition-all"}/>
 				</div>

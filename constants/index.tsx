@@ -6,6 +6,14 @@ export const navigation = [
 	{name: 'Others', href: '/others', icons:'/assets/icons/others.svg'},
 ]
 
+export const dropdownMenu = [
+	{label: 'Rename', icon: '/assets/icons/edit.svg', value: 'rename'},
+	{label: 'Delete', icon: '/assets/icons/delete.svg', value: 'delete'},
+	{label: 'Download', icon: '/assets/icons/download.svg', value: 'download'},
+	{label: 'Share', icon: '/assets/icons/share.svg', value: 'share'},
+	{label: 'Details', icon: '/assets/icons/info.svg', value: 'details'},
+]
+
 export const maxFileSize = 50 * 1024 * 1024; // 50 MB
 
 export const extensions = {

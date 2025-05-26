@@ -2,11 +2,19 @@ import Sort from "@/components/content/sort";
 import {getFiles} from "@/lib/actions/file.actions";
 import {Models} from "node-appwrite";
 import Card from "@/components/content/card";
+import {getFileTypeParams} from "@/lib/utils";
+import {FileType} from "next/dist/lib/file-exists";
 
 
 export default async function Page({params,searchParams}: SearchParamProps) {
 	const type = ((await params)?.type as string) || "";
-	const files = await getFiles();
+	const types = getFileTypeParams(type) as FileType[]
+
+	const search = ((await searchParams)?.search as string) || "";
+	const sort = ((await searchParams)?.sort as string) || "";
+
+	const files = await getFiles({types,search,sort});
+
 	return(
 		<div className={"mx-auto flex w-full flex-col items-center gap-8"}>
 			{/*heading*/}

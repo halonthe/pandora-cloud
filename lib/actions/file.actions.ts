@@ -50,7 +50,8 @@ export async function uploadFile({file,ownerId,accountId,path}: UploadFileProps)
 	}
 }
 
-function createQuery(currentUser: Models.Document) {
+function createQuery(currentUser: Models.Document, types: string[], search: string, sort: string, limit?: number) {
+
 	const queries = [
 		Query.or([
 			Query.equal("owner", [currentUser.$id]),
@@ -58,17 +59,25 @@ function createQuery(currentUser: Models.Document) {
 		])
 	]
 
+	if(types.length > 0) queries.push(Query.equal("type", types))
+	if(search) queries.push(Query.contains("name", search))
+	if(limit) queries.push(Query.limit(limit))
+	if(sort){
+	const [sortKey, sortOrder] = sort.split("-")
+	queries.push(sortOrder === "desc" ? Query.orderDesc(sortKey) : Query.orderAsc(sortKey))
+	}
+
 	return queries;
 }
 
-export async function getFiles() {
+export async function getFiles({types=[], search = "", sort = `$createdAt-desc`, limit}: GetFilesProps) {
 	const {databases} = await createAdminClient()
 
 	try {
 		const currentUser = await getCurrentUser()
 		if(!currentUser) throw new Error("No user")
 
-		const queries = createQuery(currentUser)
+		const queries = createQuery(currentUser,types, search, sort, limit)
 		const files = await databases.listDocuments(
 			appwriteConfig.databaseId,
 			appwriteConfig.filesCollectionId,

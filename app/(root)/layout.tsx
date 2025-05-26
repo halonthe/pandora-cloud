@@ -4,7 +4,9 @@ import Header from "@/components/header/header";
 import MobileNav from "@/components/navigation/mobile-nav";
 import {getCurrentUser} from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
+
+export const dynamic = 'force-dynamic';
 
 export default async function Layout({children}:{children: React.ReactNode}) {
 	const currentUser = await getCurrentUser();

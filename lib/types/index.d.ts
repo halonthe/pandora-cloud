@@ -34,3 +34,10 @@ declare interface DeleteFileProps {
 	bucketFileId: string;
 	path: string;
 }
+
+declare interface GetFilesProps {
+	types: FileType[];
+	search?: string;
+	sort?: string;
+	limit?: number;
+}

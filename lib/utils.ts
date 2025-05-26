@@ -148,3 +148,18 @@ export function getFileIcons(ext: string | undefined, type: FileType | string) {
 export function constructFileUrl(bucketFileId: string) {
   return `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${process.env.NEXT_PUBLIC_APPWRITE_BUCKET}/files/${bucketFileId}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT}`;
 }
+
+export function getFileTypeParams(type: string) {
+  switch (type) {
+    case "documents":
+      return ["document"];
+    case "images":
+      return ["images"];
+    case "media":
+      return ["videos", "audios"];
+    case "others":
+      return ["other"];
+    default:
+      return ["document"];
+  }
+}
